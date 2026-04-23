@@ -10,7 +10,7 @@ if (process.env.NODE_ENV !== "production") {
 console.log("ENV KEYS:", Object.keys(process.env).filter(k => !k.startsWith("npm")));
 console.log("FB_SERVICE_KEY present:", !!process.env.FB_SERVICE_KEY);
 console.log("FB_SERVICE_KEY length:", process.env.FB_SERVICE_KEY?.length);
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const stripe = require("stripe")(`${process.env.STRIPE_KEY}`);
 
