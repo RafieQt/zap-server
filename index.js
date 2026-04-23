@@ -5,6 +5,11 @@ const app = express();
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
+
+// DEBUG: log all env var keys so we can see what Railway provides
+console.log("ENV KEYS:", Object.keys(process.env).filter(k => !k.startsWith("npm")));
+console.log("FB_SERVICE_KEY present:", !!process.env.FB_SERVICE_KEY);
+console.log("FB_SERVICE_KEY length:", process.env.FB_SERVICE_KEY?.length);
 const port = process.env.PORT || 3000;
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const stripe = require("stripe")(`${process.env.STRIPE_KEY}`);
@@ -19,6 +24,11 @@ app.use(express.json());
 const crypto = require("crypto");
 
 const admin = require("firebase-admin");
+
+if (!process.env.FB_SERVICE_KEY) {
+  console.error("FATAL: FB_SERVICE_KEY env var is missing or empty!");
+  process.exit(1);
+}
 
 const decoded = Buffer.from(process.env.FB_SERVICE_KEY, "base64").toString(
   "utf8",
