@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-
+console.log("FB_SERVICE_KEY exists:", process.env.FB_SERVICE_KEY ? "YES" : "NO");
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
